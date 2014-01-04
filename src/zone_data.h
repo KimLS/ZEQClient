@@ -26,7 +26,7 @@ struct ZoneData
 	void BuildMobModelMeshes(Ogre::SceneManager* sceneMgr);
 #ifdef MANUAL_SKELETONS
 	SkeletonSet* ReadMobModelTree(Ogre::SceneManager* sceneMgr, SkeletonTrackSetFragment* track, const char* model_name);
-	void LoadBoneAnimations(Bone* bone, Skeleton* skele, SkeletonSet* skeleSet, const char* name, uint16 index, Bone* parent = nullptr);
+	void LoadBoneAnimations(Bone* bone, Skeleton* skele, SkeletonSet* skeleSet, const char* name, uint16 index, uint16 parent_index = 0);
 #else
 	void ReadMobModelTree(Ogre::SceneManager* sceneMgr, SkeletonTrackSetFragment* track, const char* model_name, uint32 id);
 	void LoadBoneAnimations(Ogre::Bone* bone, Ogre::SkeletonPtr& skele, const char* name, uint16 index);

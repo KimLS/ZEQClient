@@ -932,7 +932,7 @@ SkeletonSet* ZoneData::ReadMobModelTree(Ogre::SceneManager* sceneMgr, SkeletonTr
 						cur_entry.bone);
 					next.bone = add_bone;
 					skele->AddBone(add_bone,next.index);
-					LoadBoneAnimations(add_bone,skele,meshSkele,pr->mName,next.index,cur_entry.bone);
+					LoadBoneAnimations(add_bone,skele,meshSkele,pr->mName,next.index,cur_entry.index);
 				}
 			}
 			//put current piece on the stack so we can return to it
@@ -1109,7 +1109,7 @@ SkeletonSet* ZoneData::ReadMobModelTree(Ogre::SceneManager* sceneMgr, SkeletonTr
 	return meshSkele;
 }
 
-void ZoneData::LoadBoneAnimations(Bone* bone, Skeleton* skele, SkeletonSet* skeleSet, const char* name, uint16 index, Bone* parent)
+void ZoneData::LoadBoneAnimations(Bone* bone, Skeleton* skele, SkeletonSet* skeleSet, const char* name, uint16 index, uint16 parent_index)
 {
 	bool found_cur = false;
 	for (auto itr = mSkelePieceRefFrags.begin(); itr !=  mSkelePieceRefFrags.end(); itr++)
@@ -1183,8 +1183,8 @@ void ZoneData::LoadBoneAnimations(Bone* bone, Skeleton* skele, SkeletonSet* skel
 					piece->mRotationZ / rot_denom * 3.14159f * 0.5f,
 					piece->mShiftX / shift_denom,
 					piece->mShiftY / shift_denom,
-					piece->mShiftZ / shift_denom/*,
-					parent*/);
+					piece->mShiftZ / shift_denom,
+					(index == 0) ? nullptr : target_skele->GetBone(parent_index));
 				target_skele->AddBone(add_bone,index);
 
 				/*char log[128];
